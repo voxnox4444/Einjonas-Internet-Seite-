@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EinJonas Login</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#00bcd4);
+    background-size:400% 400%;
+    animation:bgMove 12s ease infinite;
+    overflow:hidden;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.login-box{
+    width:360px;
+    padding:35px;
+    border-radius:20px;
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,.15);
+    box-shadow:0 0 40px rgba(0,255,255,.25);
+    animation:fade .8s;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+h2{
+    text-align:center;
+    color:white;
+    margin-bottom:25px;
+    text-shadow:0 0 10px cyan;
+}
+
+.inputBox{
+    margin-bottom:18px;
+}
+
+.inputBox input{
+    width:100%;
+    padding:13px;
+    border:none;
+    border-radius:10px;
+    outline:none;
+    font-size:16px;
+    background:rgba(255,255,255,.12);
+    color:white;
+}
+
+.inputBox input::placeholder{
+    color:#ddd;
+}
+
+.show{
+    display:flex;
+    align-items:center;
+    color:white;
+    font-size:14px;
+    margin-bottom:18px;
+}
+
+.show input{
+    margin-right:8px;
+}
+
+button{
+    width:100%;
+    padding:13px;
+    border:none;
+    border-radius:10px;
+    background:#00e5ff;
+    color:black;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.04);
+    box-shadow:0 0 20px cyan;
+}
+
+#meldung{
+    text-align:center;
+    margin-top:20px;
+    color:white;
+    font-weight:bold;
+}
+
+.footer{
+    position:absolute;
+    bottom:20px;
+    color:white;
+    opacity:.7;
+    font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+<h2>🔒 EinJonas Login</h2>
+
+<form id="loginForm">
+
+<div class="inputBox">
+<input type="text" id="user" placeholder="Benutzername" required>
+</div>
+
+<div class="inputBox">
+<input type="password" id="pw" placeholder="Passwort" required>
+</div>
+
+<label class="show">
+<input type="checkbox" id="showPw">
+Passwort anzeigen
+</label>
+
+<button type="submit">
+Anmelden
+</button>
+
+</form>
+
+<p id="meldung"></p>
+
+</div>
+
+<div class="footer">
+© 2026 EinJonas
+</div>
+
+<script>
+  const richtigerUser = "jonas";
+const richtigesPasswort = "geheim123";
+
+let adminMode = false;
+
+// Admin über Browser-Konsole:
+// adminLogin("root123");
+function adminLogin(passwort){
+    const adminPass = "root123";
+
+    if(passwort === adminPass){
+        adminMode = true;
+        console.log("🟢 Admin-Modus aktiviert.");
+    }else{
+        console.log("🔴 Falsches Admin-Passwort.");
+    }
+}
+
+function adminLogout(){
+    adminMode = false;
+    console.log("🔴 Admin-Modus deaktiviert.");
+}
+
+// Passwort anzeigen
+document.getElementById("showPw").addEventListener("change",function(){
+
+    const feld = document.getElementById("pw");
+
+    if(this.checked){
+        feld.type = "text";
+    }else{
+        feld.type = "password";
+    }
+
+});
+
+// Login
+document.getElementById("loginForm").addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    const user = document.getElementById("user").value.trim();
+    const pw = document.getElementById("pw").value;
+    const meldung = document.getElementById("meldung");
+
+    if(
+        (user === richtigerUser && pw === richtigesPasswort)
+        || adminMode
+    ){
+
+        meldung.style.color="#00ff88";
+        meldung.textContent="✅ Login erfolgreich! Willkommen " + user;
+
+        setTimeout(function(){
+            window.location.href="Einjonas Seite 2.html";
+        },1000);
+
+    }else{
+
+        meldung.style.color="#ff5555";
+        meldung.textContent="❌ Benutzername oder Passwort ist falsch.";
+
+        document.querySelector(".login-box").animate([
+            {transform:"translateX(0px)"},
+            {transform:"translateX(-10px)"},
+            {transform:"translateX(10px)"},
+            {transform:"translateX(-10px)"},
+            {transform:"translateX(0px)"}
+        ],{
+            duration:350
+        });
+
+    }
+
+});
+</script>
+
+</body>
+</html>

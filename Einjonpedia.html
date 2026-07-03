@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Das große Jonapedia</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0D1117,#161B22,#1F2937);
+    min-height:100vh;
+    color:white;
+}
+
+/* Hintergrund */
+
+body::before,
+body::after{
+    content:"";
+    position:fixed;
+    width:350px;
+    height:350px;
+    border-radius:50%;
+    filter:blur(120px);
+    z-index:-1;
+}
+
+body::before{
+    background:#00b7ff;
+    top:-100px;
+    left:-100px;
+}
+
+body::after{
+    background:#0066ff;
+    bottom:-100px;
+    right:-100px;
+}
+
+/* Hauptfenster */
+
+.container{
+    width:90%;
+    max-width:900px;
+    margin:40px auto 80px auto;
+    padding:35px;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.1);
+
+    box-shadow:
+        0 0 50px rgba(0,140,255,.15),
+        0 0 10px rgba(255,255,255,.05);
+
+    animation:einblenden 1s;
+}
+
+@keyframes einblenden{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+h1{
+    color:#3EA6FF;
+    text-align:center;
+    margin-bottom:25px;
+    font-size:42px;
+    letter-spacing:2px;
+    text-shadow:0 0 20px #008cff;
+}
+
+input{
+    width:100%;
+    padding:18px;
+    border-radius:18px;
+    border:none;
+    background:#161B22;
+    color:white;
+    font-size:20px;
+    outline:none;
+    transition:.3s;
+}
+
+input::placeholder{
+    color:#8B949E;
+}
+
+input:focus{
+    box-shadow:0 0 20px #008cff;
+    transform:scale(1.02);
+}
+
+#ergebnisse{
+    margin-top:30px;
+    padding:20px;
+    border-radius:20px;
+    background:rgba(0,0,0,.25);
+    min-height:300px;
+    overflow:auto;
+    color:white;
+}
+
+.eintrag{
+    padding:20px;
+    margin-bottom:15px;
+    border-radius:15px;
+    background:#1E2630;
+    transition:.25s;
+    cursor:pointer;
+}
+
+.eintrag:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 25px #008cff55;
+}
+
+a{
+    color:#58A6FF;
+    text-decoration:none;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#3EA6FF;
+    border-radius:20px;
+}
+
+#abschluss{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    padding:12px;
+
+    background:rgba(0,0,0,.75);
+    border-top:1px solid #00ffcc;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+
+    color:white;
+    font-size:.9rem;
+    z-index:9999;
+}
+
+#abschluss img{
+    width:20px;
+    height:20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📖 DAS JONAPEDIA</h1>
+
+<input
+id="suche"
+type="text"
+placeholder="🔍 Stichwort eingeben..."
+onkeyup="suchen()">
+
+<div id="ergebnisse">
+
+<p style="text-align:center;color:#8B949E;font-size:18px;">
+Willkommen im Jonapedia!<br><br>
+Suche nach einem Begriff, um Informationen anzuzeigen.
+</p>
+
+</div>
+
+</div>
+<p id="abschluss">
+  Diese Seite wurde von 
+  <img src="logo.png" alt="voxtec logo" width="20">
+ entwickelt und gesponsert
+</p>
+
+<script src="wiki.js"></script>
+
+</body>
+</html>
